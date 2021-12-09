@@ -28,3 +28,4 @@ Route::get('/test-orm', 'PruebasController@testOrm');
 // Rutas del API
 Route::get('/HPRE/prueba', 'HPREController@pruebas')->name('pruebasHpre');
 Route::get('/HPRED/prueba', 'HPREDController@pruebas')->name('pruebasHpred');
+Route::post('/api/login', 'UsusuController@login');

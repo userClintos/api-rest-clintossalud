@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\HPRE;
 use App\HPRED;
+use DB;
 
 class PruebasController extends Controller
 {

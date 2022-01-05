@@ -13,19 +13,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Ruta home:
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Rutas de prueba
-
+// Rutas de prueba:
 Route::get('/pruebas', function(){
     return 'Prueba de ruteo';
 });
 
 Route::get('/test-orm', 'PruebasController@testOrm');
 
-// Rutas del API
+// Rutas del API:
+
 Route::get('/HPRE/prueba', 'HPREController@pruebas')->name('pruebasHpre');
 Route::get('/HPRED/prueba', 'HPREDController@pruebas')->name('pruebasHpred');
-Route::post('/api/login', 'UsusuController@login');
+Route::post('/api/login', 'UsusuController@login');                                     // [Login de usuarios]
+Route::post('/api/user/update', 'UsusuController@update')->middleware('api.auth');      // [Uso de un Middleware de forma individual]
+
+// Rutas de los controladores IMOV e IMOVH (Controladas por autenticación de usuario)
+Route::group(['middleware' => ['api.auth']], function () {
+    Route::resource('/api/imovh', 'IMOVHController');
+    Route::get('/api/imov/detalles/{consecutivo}', 'IMOVController@detallePedido')->name('imov.detalle');
+});

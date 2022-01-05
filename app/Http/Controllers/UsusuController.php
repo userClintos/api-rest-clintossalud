@@ -74,4 +74,23 @@ class UsusuController extends Controller
 
         return $encriptada;
     }
+
+    public function update(Request $request) {
+        /*
+        $token      = $request->header('Authorization');
+        $jwtAuth    = new \JwtAuth();
+        $chekcToken = $jwtAuth->checkToken($token);
+
+        if ($chekcToken) {
+            // En caso de que el token resulte válido se continúa con el proceso requerido
+            echo "<h1>Login correcto</h1>";
+        } else {
+            // En caso de que el token no sea válido se retorna un mensaje de error
+            echo "<h1>Login incorrecto</h1>";
+        }
+        */
+
+        echo "<h1>Login correcto</h1>";
+        die();
+    }
 }

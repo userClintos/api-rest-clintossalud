@@ -61,4 +61,33 @@
             return $data;
         }
 
+        /**
+         * Valida la autenticidad del token recibido
+         * 10.XII.2021 - fberrocalm
+         */
+        public function checkToken($jwt, $getIdentity=false) {
+            $auth    = false;
+
+            try {
+                $jwt     = str_replace('"', '', $jwt);
+                $decoded = JWT::decode($jwt, $this->secret, ['HS256']);
+
+                if (!empty($decoded) && is_object($decoded) && isset($decoded->sub)) {
+                    $auth = true;
+                } else {
+                    $auth = false;
+                }
+            } catch (\UnexpectedValueException $e) {
+                $auth = false;
+            } catch (\DomainException $e) {
+                $auth = false;
+            }
+
+            if ($getIdentity) {
+                return $decoded;
+            }
+
+            return $auth;
+        }
+
     }

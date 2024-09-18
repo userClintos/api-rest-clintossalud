@@ -25,7 +25,7 @@ class ApiAuthMiddleware
             $data = array(
                 'status'  => 'Error',
                 'code'    => 404,
-                'message' => 'El usuario no estpa identificado'
+                'message' => 'El usuario no está identificado'
             );
 
             return response()->json($data, $data['code']);

@@ -18,10 +18,11 @@ class UsusuController extends Controller
      * 24.Nov.2021 - fberrocalm
      */
     public function login(Request $request) {
-        $jwtAuth      = new \JwtAuth();
-        $json         = $request->input('json', null);
-        $params       = json_decode($json);
+        $jwtAuth = new \JwtAuth();
+        $json = $request->input('json', null);
+        $params = json_decode($json);
         $params_array = json_decode($json, true);
+        $erroCode = 0;
 
         $validate = \Validator::make($params_array, [
             'usuario'  => 'required',
@@ -35,17 +36,24 @@ class UsusuController extends Controller
                 'message' => 'El usuario y password son requeridos',
                 'errors'  => $validate->errors()
             );
+
+            $erroCode = 404;
         } else {
             $claveEncriptada = $this->codificar($params->password);
+            $erroCode = 200;
 
             if (!empty($params->gettoken)) {
-                $signup      = $jwtAuth->signup($params->usuario, $claveEncriptada, true);
+                $signup = $jwtAuth->signup($params->usuario, $claveEncriptada, true);
             } else {
-                $signup      = $jwtAuth->signup($params->usuario, $claveEncriptada);
+                $signup = $jwtAuth->signup($params->usuario, $claveEncriptada);
+            }
+
+            if (is_array($signup)) {
+                $erroCode = $signup['code'];
             }
         }
-        // $ususario = "AGALVIS"; $pass = "1ccb";
-        return response()->json($signup, 200);
+
+        return response()->json($signup, $erroCode);
     }
 
     /**

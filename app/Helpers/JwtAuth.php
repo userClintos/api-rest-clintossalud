@@ -53,8 +53,9 @@
                 }
             } else {
                 $data = array(
-                    'status'    => 'Error',
-                    'message'   => 'Usuario o Clave incorrectos'
+                    'status' => 'Error',
+                    'message' => 'Usuario o Clave incorrectos',
+                    'code' => 404
                 );
             }
 
